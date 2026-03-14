@@ -11,34 +11,32 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 🛠️ Setup
 
+1. Create a virtual environment: `python -m venv venv`
+1. Activate it: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows)
 1. Install dependencies: `pip install -r requirements.txt`
-1. Run the broken app: `python -m streamlit run app.py`
+1. Run the app: `python -m streamlit run app.py`
 
-## 🕵️‍♂️ Your Mission
+## 🕵️‍♂️ Your Mission & Completed Fixes
 
-1. **Play the game.** Open the "Developer Debug Info" tab in the app to see the secret number. Try to win.
-1. **Find the State Bug.** Why does the secret number change every time you click "Submit"? Ask ChatGPT: *"How do I keep a variable from resetting in Streamlit when I click a button?"*
-1. **Fix the Logic.** The hints ("Higher/Lower") are wrong. Fix them.
-1. **Refactor & Test.** - Move the logic into `logic_utils.py`.
+1. **State Bug Fixed:** Implemented `st.session_state` to prevent the secret number, score, and attempt count from resetting on every script rerun.
+1. **Logic Fixed:** Corrected the inverted greater-than/less-than logic in `check_guess()`.
+1. **Refactored & Tested:** Isolated all business logic into `logic_utils.py` and achieved 100% passing rates on `pytest`.
 
-- Run `pytest` in your terminal.
-- Keep fixing until all tests pass!
+## 🌟 Stretch Features Implemented
 
-## 📝 Document Your Experience
+- **Challenge 1 (Advanced Edge-Case Testing):** Added `pytest` cases specifically handling empty inputs, negative numbers, extreme integers, and graceful decimal rejections.
+- **Challenge 2 (Feature Expansion):** Added a persistent **High Score Tracker** that reads and writes best scores to a local `highscore.txt` file via Agent mode.
+- **Challenge 3 (Professional Documentation):** Used AI linting to provide professional-grade PEP8 docstrings and type-hinting to every function in `logic_utils.py`.
+- **Challenge 4 (Enhanced Game UI):** Added a responsive **Session History Dataframe** to the sidebar and introduced dynamic **Hot/Cold emojis** (🥵/❄️) based on the proximity to the secret number.
+- **Challenge 5 (AI Comparison):** Documented the difference between Copilot's in-editor capabilities and standard LLM contextual explanations in the `reflection.md`.
 
-- [x] Describe the game's purpose: A web-based interactive number guessing game where a player tries to discover a randomly generated secret number within a limited amount of attempts, utilizing higher/lower hints.
-- [x] Detail which bugs you found:
+## 📸 Proof of Completion
 
-1. **Hint Bug:** The game told the player to go higher when the guess was already too high, and lower when the guess was too low.
-1. **Type Casting Bug:** `app.py` was alternating between passing `secret` as an integer and a string, causing a TypeError loop in `check_guess`.
-1. **New Game Range Bug:** Starting a new game reset the number's range to a hardcoded 1 to 100, breaking the logic for "Easy" or "Hard" difficulty limits.
-1. **Score Bug:** Due to a logic error, getting a "Too High" answer on an even attempt would add 5 points to your score instead of subtracting points.
-- [x] Explain what fixes you applied: I refactored all core logic out of `app.py` into `logic_utils.py` to isolate Streamlit UI from pure Python logic. In `check_guess`, I cast both parameters to integers immediately, which safely handles Streamlit's string-passing quirk, and I flipped the `>` and `<` hint strings. I also fixed the tests to unpack the returned tuple correctly.
+### Automated Testing (Challenge 1)
+![Passing Unit Tests](Screenshots/Tests.png)
 
-## 📸 Demo
+### Winning the Game
+![Winning the Game](Screenshots/Winning.jpg)
 
-- [x] *(Insert your screenshot of the winning game running in your browser here!)*
-
-## 🚀 Stretch Features
-
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+### Enhanced UI & Guess History (Challenge 4)
+![Enhanced UI & Guess History](Screenshots/Enhanced.png)
